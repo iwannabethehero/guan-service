@@ -1,2 +1,2 @@
-˵��
-����Ŀ��3guanС��ר��webservice
+说明:
+本项目是为3guan小组专属使用的webservice!

@@ -38,10 +38,17 @@ public class HttpUtils {
      * @param url * 请求地址 *
      * @return 返回字符串
      */
-    public static String sendGet(String url, String token) {
+    public static String sendGet(String url, String token, Map<String,String> param) {
         String result = null;
         CloseableHttpResponse response = null;
         try {
+            if (param.size()!=0){
+                url+='?';
+                for (Map.Entry<String,String> entry:param.entrySet()) {
+                    url+=(entry.getKey()+'='+entry.getValue()+'&');
+                }
+                url = url.substring(0, url.length() - 1);
+            }
             HttpGet httpGet = new HttpGet(url);
             httpGet.setHeader("User-Agent", userAgent);
             httpGet.setHeader("Authorization", "token " + token);
@@ -74,7 +81,7 @@ public class HttpUtils {
      */
     public static String sendPost(String url, Map<String, String> map) {
         // 设置参数
-        List<NameValuePair> formparams = new ArrayList<NameValuePair>();
+        List<NameValuePair> formparams = new ArrayList<>();
         for (Map.Entry<String, String> entry : map.entrySet()) {
             formparams.add(new BasicNameValuePair(entry.getKey(), entry.getValue()));
         }
@@ -89,12 +96,9 @@ public class HttpUtils {
         CloseableHttpResponse response = null;
         String result = null;
         try {
-            // 执行post请求
             response = httpclient.execute(httpPost);
-            // 得到entity
             HttpEntity entity = response.getEntity();
-            // 得到字符串
-            result = EntityUtils.toString(entity);
+            result = EntityUtils.toString(entity,"UTF-8");
         } catch (IOException e) {
             log.error(e.getMessage());
         } finally {
@@ -133,6 +137,7 @@ public class HttpUtils {
             response = httpclient.execute(httpPost);
             HttpEntity httpEntity = response.getEntity();
             result = EntityUtils.toString(httpEntity);
+            httpEntity = null;
         } catch (IOException e) {
             log.error(e.getMessage());
         } finally {

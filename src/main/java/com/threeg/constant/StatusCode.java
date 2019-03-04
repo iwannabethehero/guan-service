@@ -1,10 +1,17 @@
 package com.threeg.constant;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 
+/**
+ * 返回状态码
+ * 对外
+ * @author hlz
+ */
 public enum StatusCode {
 
+    /**
+     * 404请求
+     */
     ERROR_NOT_FIND_404(404, "对不起！您访问的页面不存在", "对不起，您请求的页面不存在、或已被删除、或暂时不可用");
 
     public int code;
@@ -20,6 +27,10 @@ public enum StatusCode {
     }
 
 
+    /**
+     * 错误图片需要分类整理
+     * @return
+     */
     public String errorPage() {
         String htmlPage =
                 "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n" +

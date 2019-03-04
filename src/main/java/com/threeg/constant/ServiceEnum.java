@@ -1,7 +1,14 @@
 package com.threeg.constant;
 
-public enum  ServiceEnum {
+/**
+ * Serivce 枚举
+ */
+public enum ServiceEnum {
 
+    /**
+     *  获取blog服务
+     */
     GETBLOG;
+
 
 }

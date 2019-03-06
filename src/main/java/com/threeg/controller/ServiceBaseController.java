@@ -45,8 +45,6 @@ public class ServiceBaseController {
 
     /**
      * 权限检查
-     *
-     * @return
      */
     private static void checkPermission() {
 

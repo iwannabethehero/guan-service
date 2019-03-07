@@ -1,6 +1,7 @@
 package com.threeg.utils;
 
 
+import com.threeg.exception.NotFindPathException;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -37,8 +38,12 @@ public class SpringContextUtils implements ApplicationContextAware {
      * @param name service注解方式name为小驼峰格式
      * @return Object bean的实例对象
      */
-    public static Object getBean(String name) throws BeansException {
-        return applicationContext.getBean(name);
+    public static Object getBean(String name) {
+        try {
+            return applicationContext.getBean(name);
+        } catch (BeansException e) {
+            throw new NotFindPathException();
+        }
     }
 }
 

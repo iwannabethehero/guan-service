@@ -23,12 +23,17 @@ public class ServiceChannelRunner {
         path = String.valueOf(newPath) + SERVICE_STUFF;
         IService service = (IService) SpringContextUtils.getBean(path);
         Map<String, Object> response = service.service(body);
-        postService(response);
+        postService(body, response);
         return response;
 
     }
 
-    private static void postService(Map<String, Object> map) {
+    /**
+     * 加返回类型
+     *
+     * @param map
+     */
+    private static void postService(String body, Map<String, Object> map) {
 
     }
 }

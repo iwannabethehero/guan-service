@@ -1,9 +1,17 @@
 package com.threeg.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.threeg.constant.ServiceEnum;
 import com.threeg.constant.StatusCode;
+import com.threeg.entity.BaseResponseDTO;
 import com.threeg.exception.NotFindPathException;
+import com.threeg.exception.OutPutBaseException;
+import com.threeg.service.ServiceChannelRunner;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 此类用来处理请求规范性
@@ -13,6 +21,9 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController("/service")
 public class ServiceBaseController {
+
+    @Autowired
+    ServiceChannelRunner channel;
     /**
      * 此方法中的try catch 为根异常处理,所有服务器级别错误均应在此层处理
      * 不可以处理业务异常以及其他外部无关异常
@@ -26,12 +37,20 @@ public class ServiceBaseController {
         try {
             checkPath(path);
             checkPermission();
+            Map<String, Object> res = channel.run(path, body);
+            //包装参数
+            return packResponse(res);
         } catch (Exception e) {
             e.printStackTrace();
-            return handleException(e, 0);
+            int type = e instanceof OutPutBaseException ? ((OutPutBaseException) e).type : 0;
+            return handleException(e, type);
         }
+    }
 
-        return "";
+    private String packResponse(Map<String, Object> res) {
+        BaseResponseDTO resObj = new BaseResponseDTO(res);
+        return JSONObject.toJSONString(resObj);
+
     }
 
     private static void checkPath(String path) {
@@ -53,6 +72,7 @@ public class ServiceBaseController {
     /**
      * 异常处理
      * 默认非预期错误,返回500状态码及msg
+     * 如果是base异常则返回异常内部信息
      *
      * @param type 此字段约定 0 - json返回
      *             1 - xml返回

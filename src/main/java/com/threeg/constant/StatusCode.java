@@ -20,7 +20,7 @@ public enum StatusCode {
 
     public String message;
 
-    StatusCode(int code, String description, String message) {
+    StatusCode(int code, String message, String description) {
         this.description = description;
         this.message = message;
         this.code = code;

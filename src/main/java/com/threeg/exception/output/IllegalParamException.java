@@ -1,6 +1,7 @@
-package com.threeg.exception;
+package com.threeg.exception.output;
 
 import com.threeg.constant.StatusCode;
+import com.threeg.exception.OutPutBaseException;
 
 public class IllegalParamException extends OutPutBaseException {
 

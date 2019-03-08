@@ -4,13 +4,12 @@ import com.alibaba.fastjson.JSONObject;
 import com.threeg.constant.ServiceEnum;
 import com.threeg.constant.StatusCode;
 import com.threeg.entity.BaseResponseDTO;
-import com.threeg.exception.NotFindPathException;
+import com.threeg.exception.output.NotFindPathException;
 import com.threeg.exception.OutPutBaseException;
 import com.threeg.service.ServiceChannelRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -37,11 +36,11 @@ public class ServiceBaseController {
         try {
             checkPath(path);
             checkPermission();
+            checkGeneralParam(body);
             Map<String, Object> res = channel.run(path, body);
             //包装参数
             return packResponse(res);
         } catch (Exception e) {
-            e.printStackTrace();
             int type = e instanceof OutPutBaseException ? ((OutPutBaseException) e).type : 0;
             return handleException(e, type);
         }
@@ -66,6 +65,13 @@ public class ServiceBaseController {
      * 权限检查
      */
     private static void checkPermission() {
+
+    }
+
+    /**
+     * 通用参数处理
+     */
+    private static void checkGeneralParam(String body) {
 
     }
 

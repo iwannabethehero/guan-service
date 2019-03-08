@@ -1,7 +1,7 @@
 package com.threeg.utils;
 
 
-import com.threeg.exception.NotFindPathException;
+import com.threeg.exception.output.NotFindPathException;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;

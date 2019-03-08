@@ -37,7 +37,7 @@ public class ServiceBaseController {
             checkPath(path);
             checkPermission();
             checkGeneralParam(body);
-            Map<String, Object> res = channel.run(path, body);
+            Object res = channel.run(path, body);
             //包装参数
             return packResponse(res);
         } catch (Exception e) {
@@ -46,7 +46,7 @@ public class ServiceBaseController {
         }
     }
 
-    private String packResponse(Map<String, Object> res) {
+    private String packResponse(Object res) {
         BaseResponseDTO resObj = new BaseResponseDTO(res);
         return JSONObject.toJSONString(resObj);
 

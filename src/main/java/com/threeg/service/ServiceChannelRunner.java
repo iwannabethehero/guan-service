@@ -17,12 +17,12 @@ import java.util.Map;
 public class ServiceChannelRunner {
     private final static String SERVICE_STUFF = "Service";
 
-    public Map<String, Object> run(String path, String body) {
+    public Object run(String path, String body) {
         char[] newPath = path.toCharArray();
         newPath[0] -= 32;
         path = String.valueOf(newPath) + SERVICE_STUFF;
         IService service = (IService) SpringContextUtils.getBean(path);
-        Map<String, Object> response = service.service(body);
+        Object response = service.service(body);
         postService(body, response);
         return response;
 
@@ -33,7 +33,7 @@ public class ServiceChannelRunner {
      *
      * @param map
      */
-    private static void postService(String body, Map<String, Object> map) {
+    private static void postService(String body, Object map) {
 
     }
 }

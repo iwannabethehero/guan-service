@@ -8,7 +8,9 @@ public enum ServiceEnum {
     /**
      *  获取blog服务
      */
-    GETBLOG;
+    GETBLOG,
+
+    DEMO;
 
 
 }

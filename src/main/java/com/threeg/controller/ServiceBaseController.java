@@ -1,6 +1,8 @@
 package com.threeg.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.threeg.constant.ServiceEnum;
 import com.threeg.constant.StatusCode;
 import com.threeg.entity.BaseResponseDTO;
@@ -10,7 +12,9 @@ import com.threeg.service.ServiceChannelRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.Map;
+
 
 /**
  * 此类用来处理请求规范性
@@ -18,7 +22,7 @@ import java.util.Map;
  *
  * @author hlz
  */
-@RestController("/service")
+@RestController("/")
 public class ServiceBaseController {
 
     @Autowired
@@ -31,7 +35,7 @@ public class ServiceBaseController {
      * @param body 参数 json格式
      * @return xml或者json, 根据需求或者解析请求头获取其请求方式
      */
-    @RequestMapping(value = "/{path}", method = RequestMethod.POST)
+    @RequestMapping(value = "service/{path}", method = RequestMethod.GET)
     public String getBlog(@PathVariable("path") String path, @RequestParam("body") String body) {
         try {
             checkPath(path);
@@ -46,9 +50,14 @@ public class ServiceBaseController {
         }
     }
 
+    @RequestMapping("/nice")
+    public String getDemo(){
+        return "6666666666666666666";
+    }
+
     private String packResponse(Object res) {
         BaseResponseDTO resObj = new BaseResponseDTO(res);
-        return JSONObject.toJSONString(resObj);
+        return JSONObject.toJSON(resObj).toString();
 
     }
 

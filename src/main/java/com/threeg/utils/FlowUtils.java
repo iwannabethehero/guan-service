@@ -11,7 +11,8 @@ public class FlowUtils {
         if (flowHelper.linkedStep.size()>0){
             if (flowHelper.linkedStep.containsKey(run)){
                 runFlow(flowHelper.linkedStep.get(run),context);
-            }else if (flowHelper.linkedStep.containsKey("default")){
+                runFlow(flowHelper.linkedStep.get("default"),context);
+            }else{
                 runFlow(flowHelper.linkedStep.get("default"),context);
             }
         }

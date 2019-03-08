@@ -18,9 +18,7 @@ public class ServiceChannelRunner {
     private final static String SERVICE_STUFF = "Service";
 
     public Object run(String path, String body) {
-        char[] newPath = path.toCharArray();
-        newPath[0] -= 32;
-        path = String.valueOf(newPath) + SERVICE_STUFF;
+        path = path + SERVICE_STUFF;
         IService service = (IService) SpringContextUtils.getBean(path);
         Object response = service.service(body);
         postService(body, response);

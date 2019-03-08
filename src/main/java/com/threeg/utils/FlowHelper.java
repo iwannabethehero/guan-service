@@ -7,6 +7,7 @@ import java.util.Map;
 
 /**
  * 此类相当于单向链表的节点,存储Step
+ * @author hlz
  */
 public class FlowHelper {
     /**
@@ -20,14 +21,17 @@ public class FlowHelper {
         this.thisStep = thisStep;
     }
 
-    public void setNextStep(IStep step){
-        FlowHelper flowHelper = new FlowHelper(step);
+    public void setNextStep(FlowHelper flowHelper){
         linkedStep.put("default",flowHelper);
     }
 
     public void setStep(String name ,IStep step){
         FlowHelper flowHelper = new FlowHelper(step);
         linkedStep.put(name,flowHelper);
+    }
+
+    public void setStep(String name ,FlowHelper step){
+        linkedStep.put(name,step);
     }
 
 }
